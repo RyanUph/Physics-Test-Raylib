@@ -15,9 +15,11 @@ int main ()
 
     PhysicsBody floor = CreatePhysicsBodyRectangle((Vector2) {screenWidth / 2, screenHeight}, screenWidth, 100, 10);
     PhysicsBody platformLeft = CreatePhysicsBodyRectangle((Vector2) {screenWidth * 0.25f, screenHeight * 0.6f}, screenWidth * 0.25, 10, 10);
+    PhysicsBody platformRight = CreatePhysicsBodyRectangle((Vector2) {600, 270}, 200, 10, 10);
 
     floor -> enabled = false;
     platformLeft -> enabled = false;
+    platformRight -> enabled = false;
 
     // Creating movement physics body
     PhysicsBody body = CreatePhysicsBodyRectangle((Vector2) {screenWidth / 2, screenHeight / 2}, 50, 50, 1);
