@@ -21,6 +21,8 @@ int main ()
     const int screenHeight = 720;
     const float speed = 0.5f;
     InitWindow(screenWidth, screenHeight, "Physics Test");
+    InitAudioDevice();
+    Music music = LoadMusicStream("she - Pretty Pretty Battery.ogg");
     InitPhysics(); // Initialize physics 
     SetTargetFPS(60); // Set default FPS
 
@@ -65,8 +67,13 @@ int main ()
     PhysicsBody body = CreatePhysicsBodyRectangle((Vector2) {screenWidth / 2, screenHeight / 2}, 50, 50, 1);
     body -> freezeOrient = true;
 
+    PlayMusicStream(music);
+    //SeekMusicStream(music, 170.f);
+
     while (!WindowShouldClose())
     {
+        UpdateMusicStream(music);
+
         if (IsKeyDown(KEY_W))
             //body -> velocity.x = speed;
             player.position.y -= 500 * GetFrameTime();
@@ -109,6 +116,11 @@ int main ()
         {
             player.animIndex += 1;
             player.animIndex %= 4;
+        }
+
+        if (IsKeyPressed(KEY_M))
+        {
+            IsMusicStreamPlaying(music) ? PauseMusicStream(music) : ResumeMusicStream(music);
         }
 
         acc += GetFrameTime();
@@ -157,6 +169,9 @@ int main ()
     }
     
     ClosePhysics();
+    UnloadTexture(player.img);
+    UnloadMusicStream(music);
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
